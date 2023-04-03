@@ -35,7 +35,7 @@ United States Congress dataset
 
 Create table from codebook/dictionary
 -- SQLBook: Code
--- Active: 1679515732880@@127.0.0.1@5432@postgres
+-- Active: 1679516893247@@127.0.0.1@5432@postgres
 -- We start by deleting the old table
 -- SQL does not allow you to create a table if one already exists
 DROP TABLE IF EXISTS us_congress_members;
@@ -85,7 +85,16 @@ Try it yourself!
 - Create a new table for "bills_subjects"
 -- SQLBook: Code
 -- Write your own code
-
+DROP TABLE IF EXISTS bills_subjects;
+CREATE TABLE bills_subjects(
+        "Congress"  int NOT NULL,
+        bill_number int ,
+        bill_type   varchar(30),
+        action      varchar(1000),
+        main_action varchar(50),
+        object      varchar(30),
+        member_id   int
+);
 
 -- SQLBook: Markup
 # <span style="color:darkblue"> II. Import CSV into SQL </span>
@@ -116,6 +125,7 @@ FROM 'D:\GitHub\qtm151spring2023\Lecture 18\data\us_congress_members.csv' ```
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 ```
 -- SQLBook: Code
+-- Active: 1679516893247@@127.0.0.1@5432@postgres
 -- The argument associaated with COPY is the dataset in our server
 -- The argument associaated with FROM is a filepath name
 -- There are three options specified in WITH:
@@ -123,6 +133,11 @@ WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 -----  FORMAT indicates that this is a CSV
 -----  HEADER MATCH indicates that the first row contains column
 -----  names and should be ignored when importing.
+
+
+COPY us_congress_members
+FROM '/Users/ruizeniu/Desktop/MATH/QTM 151-Python/qtm151spring2023/qtm151spring2023/Lecture 18/data/us_congress_members.csv'
+WITH (DELIMITER',', FORMAT csv, HEADER MATCH);
 -- SQLBook: Markup
 <font size = "5">
 
@@ -176,7 +191,7 @@ SELECT * FROM bills_actions
 -- You just have to change the FROM argument
 --
 COPY bills_actions
-FROM 'D:\GitHub\qtm151spring2023\Lecture 18\data\bills_actions.csv'
+FROM '/Users/ruizeniu/Desktop/MATH/QTM 151-Python/qtm151spring2023/qtm151spring2023/Lecture 18/data/bills_actions.csv'
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
 
